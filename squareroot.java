@@ -34,6 +34,8 @@ class squareroot
 		number=s.nextFloat();
 
 		int[] digits=ReturnWholeNumber(number);		
+		long root=RootOfNumber(digits[0],digits[2]);
+		System.out.println(root);
 
 
 	}
