@@ -35,7 +35,8 @@ class squareroot
 
 		int[] digits=ReturnWholeNumber(number);		
 		long root=RootOfNumber(digits[0],digits[2]);
-		System.out.println(root);
+		System.out.println(digits[0]+"*"+digits[2]+"*"+digits[3]);
+		System.out.println("root is:"+root);
 
 
 	}
@@ -78,46 +79,40 @@ class squareroot
 	public static long RootOfNumber(int int_num,int int_num_w)
 	{
 		// variable needed for this function
-		double y=0;
+		int count=0;
+		double n=0;
 		long root=0;
-	    long x=0,j=0,k=0,r=0,remainder=0,divisor=0,divident=0,sum=0,num=0;
+	    long x=0,j,k=0,r=0,remainder=0,divisor=0,divident=0,sum=0,num=0;
 
 	    // procedure for root of number
-
 	    // by division method
 
 	    for(j=2;j<=int_num_w;j=j+2)
 	    	{
 	    		root=root*10;
-	    		y=(int_num/Math.pow(10,(int_num_w-j)))-((int_num/Math.pow(10,int_num_w-j+2))*100);
-	    		num=Math.round(y);
-
+	    		n=((int_num/Math.pow(10,(int_num_w-j))))-(((int)(int_num/Math.pow(10,int_num_w-j+2)))*100);
+	    		num=Math.round(n);
 	  			divident=remainder*100+num;
+	  			sum=(sum*10+k)+k;
 
 	  			for(k=1;k<=9;k++)
 	  
 	   				{
 	   					divisor=sum*10+k;
-	   					sum=divisor+k;
 	  				 	r=divident-(divisor*k);
 
-	  				 	if(r<=divident)
+	  				 	if((r<=divident) &&((divisor*k)<=divident))
 	  				 	{
 	  				 		remainder=r;
 	  				 		x=k;
 	  				 	}
 	  				 	else
 	  				 	{
-	  				 		break;
+	  				 		count=count+1;;
 	  				 	}
 	   				}
-
 	   			root=(root+x);
-
 	    	}
-
 	    return root;
-
 	}
-
 }
