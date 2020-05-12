@@ -1,6 +1,4 @@
-// METHOD TO FIND SQUARE ROOT OF A float NUMBER
-
-//
+// method to find square root of a EVEN DIGITED long number APPROXIMATE to 3 DECIMAL PLACES
 
 
 import java.util.*;
@@ -29,16 +27,22 @@ class squareroot
 	public static void main(String args[])
 	{
 		float number;
+		double e;
+		int h;
+		long g=0;
 
 		Scanner s=new Scanner(System.in);
 		number=s.nextFloat();
 
-		int[] digits=ReturnWholeNumber(number);		
-		long root=RootOfNumber(digits[0],digits[2]);
-		System.out.println(digits[0]+"*"+digits[2]+"*"+digits[3]);
-		System.out.println("root is:"+root);
-
-
+		int[] digits=ReturnWholeNumber(number);	
+		long[] root_n_remainder=RootOfNumber(digits[0],digits[2],0);
+		g=root_n_remainder[2];
+		for(h=0;g!=0;h++)
+		{
+			g=g/10;
+		}
+		e=(((double)root_n_remainder[2])/(Math.pow(10,h+(root_n_remainder[3])-1)))+(double)root_n_remainder[0];
+		System.out.println(e);
 	}
 
 	// function that generates whole digits,decimal digits as a whole number,number of digits in whole number and decimal number
@@ -76,24 +80,26 @@ class squareroot
 
 	// function that generates root of the whole number given to it
 
-	public static long RootOfNumber(int int_num,int int_num_w)
+	public static long[] RootOfNumber(long int_num,int int_num_w,int excess_remainder_in)
 	{
 		// variable needed for this function
-		int count=0;
+		int count=0,i;
 		double n=0;
 		long root=0;
-	    long x=0,j,k=0,r=0,remainder=0,divisor=0,divident=0,sum=0,num=0;
+	    long x=0,j,k=0,r=0,remainder=0,divisor=0,divident=0,sum=0,num=0,excess_remainder=0,new_root=0;
+	    long[] Root_and_Remainder=new long[4];
 
 	    // procedure for root of number
 	    // by division method
 
 	    for(j=2;j<=int_num_w;j=j+2)
-	    	{
+	    {
 	    		root=root*10;
 	    		n=((int_num/Math.pow(10,(int_num_w-j))))-(((int)(int_num/Math.pow(10,int_num_w-j+2)))*100);
-	    		num=Math.round(n);
+	    		num=(int)n;
 	  			divident=remainder*100+num;
-	  			sum=(sum*10+k)+k;
+	    		
+	  			sum=(sum*10+x)+x;
 
 	  			for(k=1;k<=9;k++)
 	  
@@ -108,11 +114,68 @@ class squareroot
 	  				 	}
 	  				 	else
 	  				 	{
-	  				 		count=count+1;;
+	  				 		x=x;
 	  				 	}
 	   				}
 	   			root=(root+x);
+	   			excess_remainder=remainder;
+	    }
+	    sum=(sum*10+x)+x;
+	    if(excess_remainder==0)
+	    	{
+	    		Root_and_Remainder[0]=root;
+	  			Root_and_Remainder[1]=excess_remainder;
+	  			Root_and_Remainder[2]=new_root;
+	  			return Root_and_Remainder;
 	    	}
-	    return root;
+	    else
+	    	{
+	    		x=0;
+	    		count=0;
+	    		divident=remainder;
+	    		for(int m=1;divident<(sum*10+1);m++)
+	    		{
+	    			divident=divident*100;
+	    			count=count+1;
+	    		}
+	    		for(i=1;i<=5;i++)
+	    		{
+	    			new_root=new_root*10;
+	    			if(divident>=(sum*10+1))
+	    			{
+	    				for(k=1;k<=9;k++)
+	    				{
+	    					divisor=(sum*10+k);
+	    					r=divident-(divisor*k);
+	    					if((divident>=(divisor*k)) && (r<=divident) && (r>=0))
+	    						{
+	  				 				remainder=r;
+	  				 				x=k;
+	  				 			}
+	  				 		else
+	  				 			{
+	  				 				x=x;
+	  				 			}
+	  					}
+	  					sum= (sum*10+x)+x;
+	  					divident=remainder*100;
+	    				new_root=new_root+x;
+	  					excess_remainder=remainder;
+	    			}
+	    			else
+	    			{	
+	    				divident=divident*100;
+	    				new_root=new_root*10;
+	    			}
+	    			
+	  				
+	    		}
+
+	    		Root_and_Remainder[0]=root;
+	  			Root_and_Remainder[1]=excess_remainder;
+	  			Root_and_Remainder[2]=new_root;
+	  			Root_and_Remainder[3]=count;
+	  			return Root_and_Remainder;
+	   		}
 	}
 }
