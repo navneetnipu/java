@@ -31,6 +31,7 @@ class squareroot
 		int h;
 		long g=0;
 
+		System.out.println("enter the even digited number in whole part of float:");
 		Scanner s=new Scanner(System.in);
 		number=s.nextFloat();
 
@@ -42,7 +43,7 @@ class squareroot
 			g=g/10;
 		}
 		e=(((double)root_n_remainder[2])/(Math.pow(10,h+(root_n_remainder[3])-1)))+(double)root_n_remainder[0];
-		System.out.println(e);
+		System.out.println("the square root is:"+e);
 	}
 
 	// function that generates whole digits,decimal digits as a whole number,number of digits in whole number and decimal number
