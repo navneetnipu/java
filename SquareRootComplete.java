@@ -124,13 +124,14 @@ class SquareRootComplete{
 		for (i=0;i<(Num.length);i++) {
 
 			Divident=(Remainder*100)+Num[i];
+			System.out.println(Divident+"**++");
 				if (((Sum*10)+1)<=Divident) {
 					Root=Root*10;
 					for (k=1;k<=9 ;k++ ) {
-						Remainder=Divident;
 						R=Divident-(((Sum*10+k))*k);
-						if (R<Divident && R>=0 ) {
+						if (R<=Divident && R>=0 ) {
 							Remainder=R;
+							System.out.println(Remainder+"**++**");
 							x=k;
 						}
 						else{
@@ -145,6 +146,7 @@ class SquareRootComplete{
 						Root=Root*10;
 						Sum=Sum*10;
 					}
+			System.out.println(Root+"***");
 		}
 
 		if(Remainder==0) {
@@ -161,9 +163,9 @@ class SquareRootComplete{
 	    		}
 	    		for(i=1;i<=5;i++)
 	    		{
-	    			DecRoot=DecRoot*10;
 	    			if(Divident>=(Sum*10+1))
 	    			{
+	    				DecRoot=DecRoot*10;
 	    				for(k=1;k<=9;k++)
 	    				{
 	    					R=Divident-((Sum*10+k)*k);
@@ -188,6 +190,7 @@ class SquareRootComplete{
 	    				DecRoot=DecRoot*10;
 	    			}
 	    		}
+	    		System.out.println(DecRoot+"***");
 	    		String t= String.valueOf(DecRoot);
 	    		int p=t.length();
 	    		FinalRoot=(double)(((double)DecRoot)/(Math.pow(10,p)))+Root;
