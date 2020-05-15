@@ -15,20 +15,11 @@ class SquareRootComplete{
 		double UserInputNumber=s.nextDouble();
 
 		DecimalNum=ReturnDenumDecimal(UserInputNumber);
-		System.out.println(DecimalNum);
 		int[] NumeratorArray=ReturnAsArray(UserInputNumber);
-		System.out.println(NumeratorArray[0]+"*"+NumeratorArray[1]+"*"+NumeratorArray[2]);
-		System.out.println(NumeratorArray.length+"++");
 		Root1=RootFunction(NumeratorArray);
-		System.out.println(Root1+"*");
 		int[] DenumeratorArray=ReturnAsArray(DecimalNum);
-		System.out.println(DenumeratorArray[0]+"*");
-		System.out.println(DenumeratorArray.length+"++");
 		Root2=RootFunction(DenumeratorArray);
-		System.out.println(Root2+"*");
 		Root=(double)Root1/Root2;
-		System.out.println(Root1);
-		System.out.println(Root2);
 		System.out.println("the square root of the number is :"+Root);
 	}
 
@@ -120,18 +111,14 @@ class SquareRootComplete{
 		int x=0,Remainder=0,R=0,Sum=0,Divident=0,k=1,i=0;
 		double Root=0,count=0,FinalRoot=0;
 		long DecRoot=0;
-		System.out.println(Num.length+"**");
 		for (i=0;i<(Num.length);i++) {
-
 			Divident=(Remainder*100)+Num[i];
-			System.out.println(Divident+"**++");
 				if (((Sum*10)+1)<=Divident) {
 					Root=Root*10;
 					for (k=1;k<=9 ;k++ ) {
 						R=Divident-(((Sum*10+k))*k);
 						if (R<=Divident && R>=0 ) {
 							Remainder=R;
-							System.out.println(Remainder+"**++**");
 							x=k;
 						}
 						else{
@@ -146,7 +133,6 @@ class SquareRootComplete{
 						Root=Root*10;
 						Sum=Sum*10;
 					}
-			System.out.println(Root+"***");
 		}
 
 		if(Remainder==0) {
@@ -190,7 +176,6 @@ class SquareRootComplete{
 	    				DecRoot=DecRoot*10;
 	    			}
 	    		}
-	    		System.out.println(DecRoot+"***");
 	    		String t= String.valueOf(DecRoot);
 	    		int p=t.length();
 	    		FinalRoot=(double)(((double)DecRoot)/(Math.pow(10,p)))+Root;
