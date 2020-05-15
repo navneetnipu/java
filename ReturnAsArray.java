@@ -1,7 +1,7 @@
 import java.util.*;
 class ReturnAsArray{
 	public static void main(String[] args) {
-		int i=0,Length=0,n=0,j=0;
+		int i=0,Length=0,n=0,j=0,Decimal=0;
 		int[] TempArr1;
 		int[] TempArr2;
 		int[] TempArr3;
@@ -17,6 +17,7 @@ class ReturnAsArray{
 		int LengthOfInputDataWholePart=TempNum1Str.length();
 
 		if (TempNum1==UserInputNumber) {
+			Decimal=0;
 			Length=LengthOfInputDataWholePart;
 			TempArr1=new int[LengthOfInputDataWholePart];
 			for(i=0;i<(LengthOfInputDataWholePart);i++){
@@ -31,6 +32,7 @@ class ReturnAsArray{
 			String TempNum3Str=String.valueOf(TempNum3);
 			int LengthOfInputCompleteData=TempNum3Str.length();
 			Length=LengthOfInputCompleteData;
+			Decimal=LengthOfInputCompleteData-LengthOfInputDataWholePart;
 			TempArr1=new int[LengthOfInputCompleteData];
 			for(i=0;i<(LengthOfInputCompleteData);i++){
 				TempArr1[i]=Character.getNumericValue(TempNum3Str.charAt(i));
