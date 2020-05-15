@@ -1,4 +1,5 @@
 import java.util.*;
+
 //String.valueOf(number_user_input)
 //Double.parseDouble(str)
 //Character.getNumericValue(c)
@@ -8,64 +9,124 @@ import java.util.*;
 class SquareRootComplete{
 
 	public static void main(String[] args) {
-
-		System.out.print("enter the number:");
+		double Root1=0,Root2=0,Root=0,DecimalNum=0;
+		System.out.println("enter the number:");
 		Scanner s=new Scanner(System.in);
 		double UserInputNumber=s.nextDouble();
-		Object[] ReqData1=RequiredNumberAndInfo(UserInputNumber);
-		Object[] ReqData2=RequiredNumberAndInfo((double)ReqData1[1]);
-		double Root=(RootFunction((int[])ReqData1[0]))/(RootFunction((int[])ReqData2[0]));
-		System.out.println("the square root of the number is:"+Root);
+
+		DecimalNum=ReturnDenumDecimal(UserInputNumber);
+		System.out.println(DecimalNum);
+		int[] NumeratorArray=ReturnAsArray(UserInputNumber);
+		System.out.println(NumeratorArray[0]+"*"+NumeratorArray[1]+"*"+NumeratorArray[2]);
+		System.out.println(NumeratorArray.length+"++");
+		Root1=RootFunction(NumeratorArray);
+		System.out.println(Root1+"*");
+		int[] DenumeratorArray=ReturnAsArray(DecimalNum);
+		System.out.println(DenumeratorArray[0]+"*");
+		System.out.println(DenumeratorArray.length+"++");
+		Root2=RootFunction(DenumeratorArray);
+		System.out.println(Root2+"*");
+		Root=(double)Root1/Root2;
+		System.out.println(Root1);
+		System.out.println(Root2);
+		System.out.println("the square root of the number is :"+Root);
 	}
 
-	public static Object[] RequiredNumberAndInfo(double UserInputNumber){
+	public static double ReturnDenumDecimal(double UserInputNumber){
 
-		Object[] ResultArray=new Object[2];
+		int Length=0,Decimal=0;
+		double Denum=0;
+
 		String UserInputNumberStr = String.valueOf( UserInputNumber);
 		int LengthOfInputData=UserInputNumberStr.length();
 
-		long temp1=(long)UserInputNumber;
-		String temp1Str=String.valueOf(temp1);
-		int LengthOfInputDataWholePart=temp1Str.length();
-		
-		double number1=(UserInputNumber)*Math.pow(10,(LengthOfInputData-LengthOfInputDataWholePart-1));
-		long number2=(long)number1;
-		String number2Str=String.valueOf(number2);
+		long TempNum1=(long)UserInputNumber;
+		String TempNum1Str=String.valueOf(TempNum1);
+		int LengthOfInputDataWholePart=TempNum1Str.length();
 
-		long Number=(long)Math.pow(10,(LengthOfInputData-LengthOfInputDataWholePart-1));
-
-		int Temp1Arr[]=new int[LengthOfInputData-1];
-
-		for(int i=0;i<(LengthOfInputData-1);i++){
-			Temp1Arr[i]=Character.getNumericValue(number2Str.charAt(i));
+		if (TempNum1==UserInputNumber) {
+			Length=LengthOfInputDataWholePart;
+			Decimal=0;
 		}
-		int n=Math.round((LengthOfInputData-1)/2);
-		int j=n-1;
-		int Temp2Arr[]=new int[n];
-		for(int i=LengthOfInputData-2;i>=0;i=i-2){
+		else{
+			double TempNum2=Math.pow(10,LengthOfInputData-LengthOfInputDataWholePart-1)*UserInputNumber;
+			long TempNum3=(long)TempNum2;
+			String TempNum3Str=String.valueOf(TempNum3);
+			int LengthOfInputCompleteData=TempNum3Str.length();
+			Length=LengthOfInputCompleteData;
+			Decimal=LengthOfInputCompleteData-LengthOfInputDataWholePart;
+		}
+		Denum=Math.pow(10,Decimal);
+		return Denum;
+	}
+
+	public static int[] ReturnAsArray(double UserInputNumber){
+
+		int i=0,Length=0,n=0,j=0;
+		
+		int[] TempArr1;
+		int[] TempArr2;
+		int[] TempArr3;
+		int[] Array;
+
+		String UserInputNumberStr = String.valueOf( UserInputNumber);
+		int LengthOfInputData=UserInputNumberStr.length();
+
+		long TempNum1=(long)UserInputNumber;
+		String TempNum1Str=String.valueOf(TempNum1);
+		int LengthOfInputDataWholePart=TempNum1Str.length();
+
+		if (TempNum1==UserInputNumber) {
+			Length=LengthOfInputDataWholePart;
+			TempArr1=new int[LengthOfInputDataWholePart];
+			for(i=0;i<(LengthOfInputDataWholePart);i++){
+				TempArr1[i]=Character.getNumericValue(TempNum1Str.charAt(i));
+			}	
+
+		}
+		else{
+			double TempNum2=Math.pow(10,LengthOfInputData-LengthOfInputDataWholePart-1)*UserInputNumber;
+			long TempNum3=(long)TempNum2;
+			String TempNum3Str=String.valueOf(TempNum3);
+			int LengthOfInputCompleteData=TempNum3Str.length();
+			Length=LengthOfInputCompleteData;
+			TempArr1=new int[LengthOfInputCompleteData];
+			for(i=0;i<(LengthOfInputCompleteData);i++){
+				TempArr1[i]=Character.getNumericValue(TempNum3Str.charAt(i));
+			}	
+		}
+		TempArr2=new int[Length];
+		TempArr2=TempArr1;
+		n=(int)Math.ceil((float)Length/2);
+		TempArr3=new int[n];
+		j=n-1;
+		for(i=Length-1;i>=0;i=i-2){
 			if(i-1>=0){
-				Temp2Arr[j]=Temp1Arr[i]+(Temp1Arr[i-1]*10);
-				j--;
+				TempArr3[j]=TempArr2[i] + ((TempArr2[i-1])*10);
+				j=j-1;
 			}
 			else{
-				Temp2Arr[j]=Temp1Arr[i];
+				TempArr3[j]=TempArr2[i];
 			}
 		}
-		ResultArray[0]=Temp2Arr;
-		ResultArray[1]=Number;
-		return ResultArray;
+		Array=new int[n];
+		Array=TempArr3;
+		return Array;
 	}
+
 
 	public static double RootFunction(int[] Num){
 
-		int x=0,Remainder=0,R=0,Sum=0,l=0,Divident=0;
-		double Root=0;
-		for (int i=0;i<=Num.length+3;i++) {
-			if (i<Num.length) {
-				Divident=(Remainder*100)+Num[i];
+		int x=0,Remainder=0,R=0,Sum=0,Divident=0,k=1,i=0;
+		double Root=0,count=0,FinalRoot=0;
+		long DecRoot=0;
+		System.out.println(Num.length+"**");
+		for (i=0;i<(Num.length);i++) {
+
+			Divident=(Remainder*100)+Num[i];
 				if (((Sum*10)+1)<=Divident) {
 					Root=Root*10;
-					for (int k=1;k<=9 ;k++ ) {
+					for (k=1;k<=9 ;k++ ) {
 						Remainder=Divident;
 						R=Divident-(((Sum*10+k))*k);
 						if (R<Divident && R>=0 ) {
@@ -79,36 +140,59 @@ class SquareRootComplete{
 					Sum=(Sum*10+x)+x;
 					Root=Root+x;
 				}
-				else{
-					}
-			}
-			else{
-				Divident=Remainder*100;
-				if (((Sum*10)+1)<=Divident) {
-					Divident=Divident*100;
-					Root=Root*10;
-					l=l*10;
-				}	
-				else{
-					Root=Root*10;
-					for (int k=1;k<=9 ;k++ ) {
+				else{	
 						Remainder=Divident;
-						R=Divident-(((Sum*10+k))*k);
-						if (R<Divident && R>=0 ) {
-							Remainder=R;
-							x=k;
-						}
-						else{
-								x=x;
-						}
+						Root=Root*10;
+						Sum=Sum*10;
 					}
-					Sum=(Sum*10+x)+x;
-					Root=Root+x;
-					l=l*10;
-				}
-			}
 		}
-		Root=Root/l;
-		return Root;
+
+		if(Remainder==0) {
+			FinalRoot=Root;
+		}
+		else{
+				x=0;
+	    		count=0;
+	    		Divident=Remainder;
+	    		for(int m=1;Divident<(Sum*10+1);m++)
+	    		{
+	    			Divident=Divident*100;
+	    			count=count+1;
+	    		}
+	    		for(i=1;i<=5;i++)
+	    		{
+	    			DecRoot=DecRoot*10;
+	    			if(Divident>=(Sum*10+1))
+	    			{
+	    				for(k=1;k<=9;k++)
+	    				{
+	    					R=Divident-((Sum*10+k)*k);
+	    					if((Divident>=((Sum*10+k)*k)) && (R<=Divident) && (R>=0))
+	    						{
+	  				 				Remainder=R;
+	  				 				x=k;
+	  				 			}
+	  				 		else
+	  				 			{
+	  				 				x=x;
+	  				 			}
+	  					}
+	  					Sum= (Sum*10+x)+x;
+	  					Divident=Remainder*100;
+	    				DecRoot=DecRoot+x;
+	    			}
+	    			else
+	    			{	
+	    				Divident=Divident*100;
+	    				Sum=Sum*10;
+	    				DecRoot=DecRoot*10;
+	    			}
+	    		}
+	    		String t= String.valueOf(DecRoot);
+	    		int p=t.length();
+	    		FinalRoot=(double)(((double)DecRoot)/(Math.pow(10,p)))+Root;
+
+		}
+		return FinalRoot;
 	}
 }
